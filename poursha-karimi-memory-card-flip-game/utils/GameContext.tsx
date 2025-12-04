@@ -13,7 +13,6 @@ const initialState = {
   flipped: [],
   compare: null,
   match: [],
-  reset: false,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -39,16 +38,28 @@ function reducer(state, action) {
         state.flipped.includes(card.id)
       );
       const isMatched = first.pairID === second.pairID;
+
       if (isMatched) {
+        const newMatches = [...state.match, ...state.flipped];
+        if (newMatches.length === cards.length)
+          return {
+            ...state,
+            status: "finished",
+            match: newMatches,
+            flipped: [],
+          };
+
         return {
           ...state,
-          match: [...state.match, ...state.flipped],
+          match: newMatches,
           status: "in_progress",
           flipped: [],
         };
       } else {
         return { ...state, status: "in_progress", flipped: [] };
       }
+    case "reset":
+      return { ...initialState, status: "start" };
     default:
       throw new Error("Action Unkown");
   }
