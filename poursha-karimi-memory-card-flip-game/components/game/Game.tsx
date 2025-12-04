@@ -5,13 +5,12 @@ import GameBoard from "@/components/game-board/GameBoard";
 // import { useEffect } from "react";
 export default function Game() {
   const { status } = useGame();
-  // useEffect(() => {
-
-  // }, [])
   return (
     <main className="">
       {status === "ready" && <StartScreen />}
-      {(status === "in_progress" || status === "comparing") && <GameBoard />}
+      {(status === "in_progress" ||
+        status === "comparing" ||
+        status === "finished") && <GameBoard />}
     </main>
   );
 }

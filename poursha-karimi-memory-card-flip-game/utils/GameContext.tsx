@@ -2,7 +2,6 @@
 
 import { cards } from "@/data/Cards";
 import { shuffleCards } from "@/utils/shuffleCards";
-import { match } from "assert";
 import { useContext, useMemo, useReducer } from "react";
 import { createContext } from "react";
 const GameContext = createContext(undefined);
@@ -59,7 +58,11 @@ function reducer(state, action) {
         return { ...state, status: "in_progress", flipped: [] };
       }
     case "reset":
-      return { ...initialState, status: "start" };
+      return {
+        ...initialState,
+        status: "in_progress",
+        cards: shuffleCards(cards),
+      };
     default:
       throw new Error("Action Unkown");
   }
