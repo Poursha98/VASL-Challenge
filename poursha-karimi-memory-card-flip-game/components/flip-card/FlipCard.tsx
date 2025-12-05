@@ -40,7 +40,9 @@ export default function FlipCard({ card }: { card: GameCard }) {
         <div
           className="absolute inset-0 w-full h-full flex flex-col items-center justify-center rounded-3xl backface-hidden transform-[rotateY(180deg)] "
           style={
-            isMatchedCard || flipped.includes(card.id)
+            isMatchedCard
+              ? { backgroundColor: hexToRGBA(card.fill, 0.4) }
+              : flipped.includes(card.id)
               ? { backgroundColor: hexToRGBA(card.fill, 0.7) }
               : {}
           }
