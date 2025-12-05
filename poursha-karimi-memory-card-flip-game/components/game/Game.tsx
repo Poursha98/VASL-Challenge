@@ -7,7 +7,7 @@ const whilePlaying = ["in_progress", "comparing", "finished"];
 export default function Game() {
   const { status } = useGame();
   return (
-    <main className="">
+    <main className="h-dvh">
       {status === "ready" && <StartScreen />}
       {whilePlaying.includes(status) && <GameBoard />}
     </main>

@@ -1,17 +1,17 @@
 import { Dispatch, ComponentType, SVGProps } from "react";
 
-export interface Card {
+export interface GameCard {
   id: string;
   pairID: number;
-  icon?: string | ComponentType<SVGProps<SVGSVGElement>>;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   name: string;
-  fill?: string;
+  fill: string;
   stroke?: string;
 }
 
 export interface GameStates {
   status: "ready" | "in_progress" | "comparing" | "finished";
-  cards: Card[];
+  cards: GameCard[];
   flipped: string[];
   match: string[];
 }

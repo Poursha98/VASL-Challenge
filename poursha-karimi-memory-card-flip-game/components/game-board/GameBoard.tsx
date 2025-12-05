@@ -1,8 +1,9 @@
 import { useGame } from "@/utils/GameContext";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import FlipCard from "@/components/flip-card/FlipCard";
 export default function GameBoard() {
-  const { status, cards, dispatch, flipped, match } = useGame();
+  const { status, cards, dispatch } = useGame();
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
     if (status === "comparing") {
@@ -15,29 +16,14 @@ export default function GameBoard() {
     };
   }, [status, dispatch]);
   return (
-    <div className="flex flex-col gap-16">
-      <div className="grid grid-cols-4 gap-4">
+    <div className="flex flex-col gap-4 max-w-[900px] mx-auto h-full p-4">
+      <div className="grid grid-cols-4 grid-rows-5 flex-1 h-full gap-2 min-h-0 ">
         {cards.map((card) => (
-          <button
-            className={`bg-gray-500  w-full h-full rounded-2xl p-6 flex items-center justify-center ${
-              match.includes(card.id) ? "bg-gray-500/20 text-red-800" : ""
-            } ${
-              match.includes(card.id) || flipped.includes(card.id)
-                ? "text-black"
-                : "text-gray-500"
-            }`}
-            key={card.id}
-            disabled={match.includes(card.id)}
-            onClick={() => dispatch({ type: "flipped", payload: card.id })}
-          >
-            {flipped.includes(card.id) || match.includes(card.id)
-              ? card.name
-              : Array.from({ length: 5 }, () => "*").join("")}
-          </button>
+          <FlipCard card={card} key={card.id} />
         ))}
       </div>
       {status === "finished" && (
-        <div className="flex flex-col justify-center items-center gap-4 w-full">
+        <div className="flex flex-col justify-center items-center gap-4 w-full py-4">
           <h4>بازی تمام شد!</h4>
           <Button onClick={() => dispatch({ type: "reset" })}>شروع مجدد</Button>
         </div>

@@ -85,7 +85,7 @@ export const cards = [
     pairID: 5,
     icon: FlameKindling,
     name: "آتش",
-    fill: "##FFDFA9",
+    fill: "#FFDFA9",
     stroke: "",
   },
   {
@@ -93,7 +93,7 @@ export const cards = [
     pairID: 5,
     icon: FlameKindling,
     name: "آتش",
-    fill: "##FFDFA9",
+    fill: "#FFDFA9",
     stroke: "",
   },
 
