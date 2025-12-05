@@ -1,10 +1,12 @@
-import { Dispatch } from "react";
+import { Dispatch, ComponentType, SVGProps } from "react";
 
 export interface Card {
   id: string;
   pairID: number;
-  image?: string;
+  icon?: string | ComponentType<SVGProps<SVGSVGElement>>;
   name: string;
+  fill?: string;
+  stroke?: string;
 }
 
 export interface GameStates {
