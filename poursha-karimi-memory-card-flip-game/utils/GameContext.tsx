@@ -2,18 +2,19 @@
 
 import { cards } from "@/data/Cards";
 import { shuffleCards } from "@/utils/shuffleCards";
-import { useContext, useMemo, useReducer } from "react";
+import { ReactNode, useContext, useMemo, useReducer } from "react";
 import { createContext } from "react";
-const GameContext = createContext(undefined);
+import { GameAction, GameStates, GameContextType } from "@/types/gameTypes";
 
-const initialState = {
+const GameContext = createContext<GameContextType | undefined>(undefined);
+
+const initialState: GameStates = {
   status: "ready",
   cards,
   flipped: [],
-  compare: null,
   match: [],
 };
-function reducer(state, action) {
+function reducer(state: GameStates, action: GameAction): GameStates {
   switch (action.type) {
     case "start":
       return { ...state, status: "in_progress", cards: shuffleCards(cards) };
@@ -67,12 +68,14 @@ function reducer(state, action) {
       throw new Error("Action Unkown");
   }
 }
-function GameProvider({ children }) {
-  const [{ status, cards, flipped, compare, match, reset }, dispatch] =
-    useReducer(reducer, initialState);
+function GameProvider({ children }: { children: ReactNode }) {
+  const [{ status, cards, flipped, match }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
   const values = useMemo(
-    () => ({ status, cards, flipped, compare, match, reset, dispatch }),
-    [status, cards, flipped, compare, match, reset, dispatch]
+    () => ({ status, cards, flipped, match, dispatch }),
+    [status, cards, flipped, match, dispatch]
   );
 
   return <GameContext.Provider value={values}>{children}</GameContext.Provider>;

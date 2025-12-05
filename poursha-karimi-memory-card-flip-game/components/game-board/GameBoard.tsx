@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 export default function GameBoard() {
   const { status, cards, dispatch, flipped, match } = useGame();
   useEffect(() => {
-    let timer;
+    let timer: ReturnType<typeof setTimeout>;
     if (status === "comparing") {
       timer = setTimeout(() => {
         dispatch({ type: "check_match" });
