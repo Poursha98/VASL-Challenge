@@ -32,7 +32,7 @@ export default function GameBoard() {
           >
             {flipped.includes(card.id) || match.includes(card.id)
               ? card.name
-              : Array.from({ length: card?.name.length }, () => "*").join("")}
+              : Array.from({ length: 5 }, () => "*").join("")}
           </button>
         ))}
       </div>
