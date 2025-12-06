@@ -1,6 +1,7 @@
 import { useGame } from "@/utils/GameContext";
 import { useEffect } from "react";
 import FlipCard from "@/components/flip-card/FlipCard";
+import { motion } from "motion/react";
 export default function GameBoard() {
   const { status, cards, dispatch } = useGame();
   useEffect(() => {
@@ -15,12 +16,23 @@ export default function GameBoard() {
     };
   }, [status, dispatch]);
   return (
-    <div className="flex flex-col gap-4 max-w-[900px] mx-auto h-full p-4 pt-[65px] relative z-50">
-      <div className="grid grid-cols-4 grid-rows-5 flex-1 h-full gap-2 min-h-0 ">
-        {cards.map((card) => (
-          <FlipCard card={card} key={card.id} />
-        ))}
-      </div>
-    </div>
+    <motion.div className="flex flex-col gap-4 max-w-[900px] mx-auto h-full p-4 pt-[65px] relative z-50">
+      <motion.div className="grid grid-cols-4 grid-rows-5 flex-1 h-full gap-2 min-h-0 ">
+        {cards.map((card, i) => {
+          const delayDuration = i / 10 + 0.05;
+          return (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+              transition={{ delay: delayDuration }}
+              key={card.id}
+            >
+              <FlipCard card={card} />
+            </motion.div>
+          );
+        })}
+      </motion.div>
+    </motion.div>
   );
 }
