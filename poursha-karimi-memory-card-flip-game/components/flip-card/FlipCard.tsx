@@ -32,7 +32,7 @@ export default function FlipCard({ card }: { card: GameCard }) {
         >
           <span className={`text-gray-400 flex items-center justify-center`}>
             <FileQuestionMark
-              className="size-18"
+              className="sm:size-18 size-14"
               strokeWidth={0.6}
               stroke="#20ca7b"
             />
@@ -48,7 +48,11 @@ export default function FlipCard({ card }: { card: GameCard }) {
           //     : {}
           // }
         >
-          <Icon fill={card.fill} className="size-18" strokeWidth={0.6} />
+          <Icon
+            fill={card.fill}
+            className="sm:size-18 size-14"
+            strokeWidth={0.6}
+          />
           {status !== "finished" && (
             <CardFooter
               className={` sm:text-lg text-sm font-medium absolute bottom-1 text-gray-300`}

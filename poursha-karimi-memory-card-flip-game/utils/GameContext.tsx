@@ -15,7 +15,7 @@ const initialState: GameStates = {
   cards,
   flipped: [],
   match: [],
-  gameBG: "rgb(0, 17, 82)",
+  gameBG: "rgb(36, 71, 209)",
 };
 function reducer(state: GameStates, action: GameAction): GameStates {
   switch (action.type) {
