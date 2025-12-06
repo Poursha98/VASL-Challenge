@@ -19,6 +19,8 @@ const initialState: GameStates = {
 };
 function reducer(state: GameStates, action: GameAction): GameStates {
   switch (action.type) {
+    case "home":
+      return { ...state, status: "ready", cards, flipped: [], match: [] };
     case "start":
       return {
         ...state,

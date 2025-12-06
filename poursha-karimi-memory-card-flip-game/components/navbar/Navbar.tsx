@@ -1,8 +1,9 @@
 import { useGame } from "@/utils/GameContext";
 import { Button } from "@/components/ui/button";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 export default function Navbar() {
-  const { match, dispatch, cards } = useGame();
+  const { status, match, dispatch, cards } = useGame();
   const numMatched = (Math.floor(match.length) / 2).toLocaleString("fa");
   const numPair = (Math.floor(cards?.length) / 2).toLocaleString("fa");
   return (
@@ -10,7 +11,15 @@ export default function Navbar() {
       <div className="flex items-center justify-between p-4 w-full max-w-[900px] mx-auto">
         <div className="flex items-center gap-4">
           {numMatched === numPair ? (
-            <span>پایان بازی</span>
+            <span
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch({ type: "home" });
+              }}
+              className="cursor-pointer text-gray-300 hover:text-gray-400"
+            >
+              بازگشت
+            </span>
           ) : (
             <>
               <span>امتیاز</span>
@@ -21,13 +30,32 @@ export default function Navbar() {
           )}
         </div>
         <Button
-          className="bg-gray-900/90  hover:bg-gray-700/60 rounded-2xl cursor-pointer"
+          className="bg-gray-900/90  hover:bg-gray-700/60 rounded-2xl cursor-pointer relative"
           onClick={(e) => {
             e.preventDefault();
             dispatch({ type: "reset" });
           }}
         >
-          شروع مجدد
+          <span>شروع مجدد</span>
+          {status === "finished" && (
+            <>
+              <BorderBeam
+                duration={2}
+                size={45}
+                colorFrom="#7a0101"
+                colorTo="#7765c7"
+                borderWidth={2}
+              />
+              <BorderBeam
+                duration={2}
+                size={45}
+                colorFrom="#00ff99"
+                colorTo="#fff200"
+                borderWidth={2}
+                reverse
+              />
+            </>
+          )}
         </Button>
       </div>
     </nav>

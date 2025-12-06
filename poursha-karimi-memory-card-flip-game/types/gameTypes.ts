@@ -18,6 +18,7 @@ export interface GameStates {
 }
 
 export type GameAction =
+  | { type: "home" }
   | { type: "start" }
   | { type: "check_match" }
   | { type: "reset" }
