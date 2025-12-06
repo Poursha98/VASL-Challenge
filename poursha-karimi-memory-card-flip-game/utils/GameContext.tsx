@@ -6,6 +6,7 @@ import { ReactNode, useContext, useMemo, useReducer } from "react";
 import { createContext } from "react";
 import { GameAction, GameStates, GameContextType } from "@/types/gameTypes";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
+import Navbar from "@/components/navbar/Navbar";
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
@@ -87,6 +88,7 @@ function GameProvider({ children }: { children: ReactNode }) {
 
   return (
     <GameContext.Provider value={values}>
+      {status !== "ready" && <Navbar />}
       <div className="w-full h-full relative">
         <BackgroundGradientAnimation gradientBackgroundStart={gameBG}>
           {children}
