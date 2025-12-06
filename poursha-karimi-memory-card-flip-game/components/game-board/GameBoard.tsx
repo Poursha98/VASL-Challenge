@@ -16,7 +16,7 @@ export default function GameBoard() {
     };
   }, [status, dispatch]);
   return (
-    <div className="flex flex-col gap-4 max-w-[900px] mx-auto h-full p-4">
+    <div className="flex flex-col gap-4 max-w-[900px] mx-auto h-full p-4 relative z-50">
       <div className="grid grid-cols-4 grid-rows-5 flex-1 h-full gap-2 min-h-0 ">
         {cards.map((card) => (
           <FlipCard card={card} key={card.id} />

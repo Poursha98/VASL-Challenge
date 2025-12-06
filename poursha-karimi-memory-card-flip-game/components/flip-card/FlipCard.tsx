@@ -1,7 +1,6 @@
 import { Card, CardFooter } from "@/components/ui/card";
 import { useGame } from "@/utils/GameContext";
 import { GameCard } from "@/types/gameTypes";
-import { hexToRGBA } from "@/utils/hexToRGBA";
 import { FileQuestionMark } from "lucide-react";
 export default function FlipCard({ card }: { card: GameCard }) {
   const Icon = card.icon;
@@ -19,13 +18,15 @@ export default function FlipCard({ card }: { card: GameCard }) {
     >
       <div
         className={`relative w-full h-full transition-all duration-500 transform-3d ${
+          isMatchedCard ? "bg-gray-900/70" : "bg-gray-900/40"
+        } rounded-3xl ${
           flipped.includes(card.id) || isMatchedCard
             ? "transform-[rotateY(180deg)]"
             : ""
         }`}
       >
         <div
-          className={`absolute inset-0 w-full h-full flex items-center justify-center bg-gray-400 rounded-3xl backface-hidden ${
+          className={`absolute inset-0 w-full h-full flex items-center justify-center  backface-hidden ${
             isMatchedCard ? "opacity-0" : ""
           }`}
         >
@@ -33,28 +34,24 @@ export default function FlipCard({ card }: { card: GameCard }) {
             <FileQuestionMark
               className="size-18"
               strokeWidth={0.6}
-              stroke="#fff"
+              stroke="#20ca7b"
             />
           </span>
         </div>
         <div
           className="absolute inset-0 w-full h-full flex flex-col items-center justify-center rounded-3xl backface-hidden transform-[rotateY(180deg)] "
-          style={
-            isMatchedCard
-              ? { backgroundColor: hexToRGBA(card.fill, 0.4) }
-              : flipped.includes(card.id)
-              ? { backgroundColor: hexToRGBA(card.fill, 0.7) }
-              : {}
-          }
+          // style={
+          //   isMatchedCard
+          //     ? { backgroundColor: hexToRGBA(card.fill, 0.4) }
+          //     : flipped.includes(card.id)
+          //     ? { backgroundColor: hexToRGBA(card.fill, 0.7) }
+          //     : {}
+          // }
         >
           <Icon fill={card.fill} className="size-18" strokeWidth={0.6} />
           {status !== "finished" && (
             <CardFooter
-              className={`${
-                isMatchedCard || flipped.includes(card.id)
-                  ? "text-gray-800"
-                  : "text-gray-400"
-              } sm:text-lg text-sm font-medium absolute bottom-1 `}
+              className={` sm:text-lg text-sm font-medium absolute bottom-1 text-gray-300`}
             >
               {card.name}
             </CardFooter>

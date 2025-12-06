@@ -14,6 +14,7 @@ export interface GameStates {
   cards: GameCard[];
   flipped: string[];
   match: string[];
+  gameBG: string;
 }
 
 export type GameAction =

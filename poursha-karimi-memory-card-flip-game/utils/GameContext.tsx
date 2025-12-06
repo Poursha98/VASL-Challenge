@@ -5,6 +5,7 @@ import { shuffleCards } from "@/utils/shuffleCards";
 import { ReactNode, useContext, useMemo, useReducer } from "react";
 import { createContext } from "react";
 import { GameAction, GameStates, GameContextType } from "@/types/gameTypes";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 const GameContext = createContext<GameContextType | undefined>(undefined);
 
@@ -13,11 +14,17 @@ const initialState: GameStates = {
   cards,
   flipped: [],
   match: [],
+  gameBG: "rgb(0, 17, 82)",
 };
 function reducer(state: GameStates, action: GameAction): GameStates {
   switch (action.type) {
     case "start":
-      return { ...state, status: "in_progress", cards: shuffleCards(cards) };
+      return {
+        ...state,
+        status: "in_progress",
+        cards: shuffleCards(cards),
+        gameBG: "rgb(119, 101,199)",
+      };
     case "flipped":
       if (state.status === "comparing") return state;
       const clickedID = action.payload;
@@ -69,16 +76,24 @@ function reducer(state: GameStates, action: GameAction): GameStates {
   }
 }
 function GameProvider({ children }: { children: ReactNode }) {
-  const [{ status, cards, flipped, match }, dispatch] = useReducer(
+  const [{ status, cards, flipped, match, gameBG }, dispatch] = useReducer(
     reducer,
     initialState
   );
   const values = useMemo(
-    () => ({ status, cards, flipped, match, dispatch }),
-    [status, cards, flipped, match, dispatch]
+    () => ({ status, cards, flipped, match, gameBG, dispatch }),
+    [status, cards, flipped, match, dispatch, gameBG]
   );
 
-  return <GameContext.Provider value={values}>{children}</GameContext.Provider>;
+  return (
+    <GameContext.Provider value={values}>
+      <div className="w-full h-full relative">
+        <BackgroundGradientAnimation gradientBackgroundStart={gameBG}>
+          {children}
+        </BackgroundGradientAnimation>
+      </div>
+    </GameContext.Provider>
+  );
 }
 function useGame() {
   const context = useContext(GameContext);
